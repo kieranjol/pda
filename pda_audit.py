@@ -7,6 +7,9 @@ import time
 import csv
 
 video_dir = sys.argv[1]
+def metadata_check(metadata_type, index):
+                 if subprocess.check_output(['exiftool', metadata_type, name]) == '':
+                     metadata.insert(index, 'No metadata')
 def create_csv(csv_file, *args):
     f = open(csv_file, 'wb')
     try:
@@ -50,21 +53,28 @@ for root, dirs, files in os.walk(video_dir):
              megapixels = metadata[0]
              filesize = metadata[1]
              codec = metadata[2]
-             make = metadata[3]
-             camera_model = metadata[4]
              image_width = metadata[5]
              image_height = metadata[6]
+             metadata_check('-Make', 3)
+             make = metadata[3]
+             metadata_check('-Model', 4)
+             camera_model = metadata[4]
+             metadata_check('-ExposureTime', 7)
              exposure = metadata[7]
+             metadata_check('-FNumber', 8)
              fstop = metadata[8]
+             metadata_check('-ISO', 9)
              iso = metadata[9]
              if subprocess.check_output(['exiftool', '-LensModel', name]) == '':
                  metadata.insert(10, 'No metadata')
              
              lensmodel = metadata[10]
-           
+             
               
              date_modified = metadata[11] 
              date_created = metadata[12] 
+             print metadata
+             metadata_check('-ModifyDate', 13)
              exif_modify = metadata[13] 
              print metadata, name
              print ' File %d of %d in  current dir, %d of %d overall' % (counter, total_files, all_file_counter, all_files)
