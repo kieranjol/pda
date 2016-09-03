@@ -23,7 +23,9 @@ class ExampleApp(QtGui.QMainWindow, catgui.Ui_MainWindow):
         images = glob('*.jpeg') + glob('*.tif')+ glob('*.jpg')
         image = QtGui.QImage(images[counter])
         self.label.setPixmap(QtGui.QPixmap.fromImage(image))
+        self.display_filename()
         self.commandLinkButton.clicked.connect(self.next)
+        self.commandLinkButton.clicked.connect(self.display_filename)
         self.commandLinkButton_2.clicked.connect(self.previous)
         
     def next(self):
@@ -36,28 +38,8 @@ class ExampleApp(QtGui.QMainWindow, catgui.Ui_MainWindow):
         counter-=1
         image = QtGui.QImage(images[counter])
         self.label.setPixmap(QtGui.QPixmap.fromImage(image))
-    
-
-
-
-
-
-        '''
-        self.processButton.setEnabled(True)
-        self.processButton.clicked.connect(self.encode)
-        #self.oeTextBox.textChanged.connect(self.countup)
-        #print text
-        #items = []
-        self.filmPreparationListBox.itemSelectionChanged.connect(self.getPrepList)
-        self.filmCaptureInterventionsListBox.itemSelectionChanged.connect(self.getInterventionList)
-        self.rawAudioInterventions.itemSelectionChanged.connect(self.getRawAudioInterventionsList)
-        self.userComboBox.activated[str].connect(self.getUser)
-        self.tapeWorkstationComboBox.activated[str].connect(self.getWorkstation)
-        
-        '''
-        
-        
-    
+    def display_filename(self):
+        self.current_filename.setText(images[counter])    
 def main():
 
     app = QtGui.QApplication(sys.argv)  # A new instance of QApplication

@@ -226,7 +226,7 @@
      <string>Photo Details:</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_12">
+   <widget class="QLineEdit" name="current_filename">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -236,7 +236,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>img_1001.jpg</string>
+     <string/>
     </property>
    </widget>
   </widget>

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\kieranjol\pda\catgui.ui'
+# Form implementation generated from reading ui file 'catgui.ui'
 #
 # Created by: PyQt4 UI code generator 4.11.4
 #
@@ -81,9 +81,10 @@ class Ui_MainWindow(object):
         self.lineEdit_11 = QtGui.QLineEdit(self.centralwidget)
         self.lineEdit_11.setGeometry(QtCore.QRect(450, 70, 131, 20))
         self.lineEdit_11.setObjectName(_fromUtf8("lineEdit_11"))
-        self.lineEdit_12 = QtGui.QLineEdit(self.centralwidget)
-        self.lineEdit_12.setGeometry(QtCore.QRect(10, 20, 113, 20))
-        self.lineEdit_12.setObjectName(_fromUtf8("lineEdit_12"))
+        self.current_filename = QtGui.QLineEdit(self.centralwidget)
+        self.current_filename.setGeometry(QtCore.QRect(10, 20, 113, 20))
+        self.current_filename.setText(_fromUtf8(""))
+        self.current_filename.setObjectName(_fromUtf8("current_filename"))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 678, 21))
@@ -113,6 +114,5 @@ class Ui_MainWindow(object):
         self.radioButton.setText(_translate("MainWindow", "Email pic to Kieran", None))
         self.radioButton_2.setText(_translate("MainWindow", "Email pic to David", None))
         self.lineEdit_11.setText(_translate("MainWindow", "Photo Details:", None))
-        self.lineEdit_12.setText(_translate("MainWindow", "img_1001.jpg", None))
         self.menuFile.setTitle(_translate("MainWindow", "File", None))
 
