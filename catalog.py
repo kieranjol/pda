@@ -24,15 +24,21 @@ class ExampleApp(QtGui.QMainWindow, catgui.Ui_MainWindow):
         images = glob('*.jpeg') + glob('*.tif')+ glob('*.jpg')
         image = QtGui.QImage(images[counter])
         self.label.setPixmap(QtGui.QPixmap.fromImage(image))
+        
         self.display_filename()
+        
         self.grab_exisiting_metadata()
+        
         self.commandLinkButton.clicked.connect(self.create_csv)
-        self.commandLinkButton.clicked.connect(self.next)
         self.submitButton.clicked.connect(self.archive)
-        self.commandLinkButton.clicked.connect(self.grab_exisiting_metadata)
         self.commandLinkButton.clicked.connect(self.display_filename)
         self.commandLinkButton_2.clicked.connect(self.previous)
-    
+        
+        
+        self.commandLinkButton.clicked.connect(self.next)
+        self.commandLinkButton.clicked.connect(self.clear)
+        self.commandLinkButton.clicked.connect(self.grab_exisiting_metadata)
+
     
     def archive(self):
        for i in images:
@@ -45,6 +51,7 @@ class ExampleApp(QtGui.QMainWindow, catgui.Ui_MainWindow):
                exif = metadata + '/exif.xml'  
                md5_file = master_dir + '/' + master_dir + '_md5.txt'
                sha512_file = master_dir + '/' + master_dir + '_sha512.txt'
+               
                os.makedirs(master_dir)
                os.makedirs(metadata)
                os.makedirs(proxies)
@@ -66,6 +73,7 @@ class ExampleApp(QtGui.QMainWindow, catgui.Ui_MainWindow):
                    fo.write(sha512)
 
     def grab_exisiting_metadata(self):
+        
         csv_file = images[counter] + '.csv'
         print os.path.abspath(csv_file), 'xx'
         if os.path.isfile(csv_file):
@@ -82,6 +90,7 @@ class ExampleApp(QtGui.QMainWindow, catgui.Ui_MainWindow):
                     self.descriptionField.setText(description) 
                     self.subjectField.setText(subject)    
     def create_csv(self):
+        
         csv_file = images[counter] + '.csv'
         date = self.dateField.text()
         title = self.titleField.text()
@@ -90,20 +99,39 @@ class ExampleApp(QtGui.QMainWindow, catgui.Ui_MainWindow):
         location = self.locationField.text()
         description = self.descriptionField.text()
         subject = self.subjectField.text()
-        
-        if not os.path.isfile(csv_file):
-            f = open(csv_file, 'wb')
-            try:
-                writer = csv.writer(f)
-                header = ['Filename','Date', 'Title', 'Creator', 'People', 'Location', 'Description', 'Subject']
-                writer.writerow(header)
-                writer.writerow([images[counter],date, title, creator, people, location, description, subject])
+        data_check = [str(date), str(title), str(creator), str(people), str(location), str(description), str(subject)]
+        print data_check
+        field_count = 0
+        for fields in data_check:
+            if fields == '':
+                print fields
+            else:
+                field_count += 1
+        print field_count
+        if not field_count == 0:        
+            if not os.path.isfile(csv_file):
+                f = open(csv_file, 'wb')
+                try:
+                    writer = csv.writer(f)
+                    header = ['Filename','Date', 'Title', 'Creator', 'People', 'Location', 'Description', 'Subject']
+                    writer.writerow(header)
+                    writer.writerow([images[counter],date, title, creator, people, location, description, subject])
 
-            finally:
-                f.close()
-    
+                finally:
+                    f.close()
+                    
+                    
+    def clear(self):
+        self.dateField.setText('')
+        self.titleField.setText('')
+        self.creatorField.setText('')
+        self.peopleField.setText('')
+        self.locationField.setText('') 
+        self.descriptionField.setText('') 
+        self.subjectField.setText('') 
     def next(self):
         global counter
+        
         counter+=1
         image = QtGui.QImage(images[counter])
         self.label.setPixmap(QtGui.QPixmap.fromImage(image))
