@@ -73,12 +73,14 @@ class ExampleApp(QtGui.QMainWindow, catgui.Ui_MainWindow):
                     reader = csv.reader(read_object)
                     csv_list = list(reader)
                     print csv_list[1]
-                    filename_from_csv, date, title, creator, people, location = csv_list[1]
+                    filename_from_csv, date, title, creator, people, location, description, subject = csv_list[1]
                     self.dateField.setText(date)
                     self.titleField.setText(title)
                     self.creatorField.setText(creator)
                     self.peopleField.setText(people)
-                    self.locationField.setText(location)    
+                    self.locationField.setText(location) 
+                    self.descriptionField.setText(description) 
+                    self.subjectField.setText(subject)    
     def create_csv(self):
         csv_file = images[counter] + '.csv'
         date = self.dateField.text()
@@ -86,14 +88,16 @@ class ExampleApp(QtGui.QMainWindow, catgui.Ui_MainWindow):
         creator = self.creatorField.text()
         people = self.peopleField.text()
         location = self.locationField.text()
+        description = self.descriptionField.text()
+        subject = self.subjectField.text()
         
         if not os.path.isfile(csv_file):
             f = open(csv_file, 'wb')
             try:
                 writer = csv.writer(f)
-                header = ['Filename','Date', 'Title', 'Creator', 'People', 'Location']
+                header = ['Filename','Date', 'Title', 'Creator', 'People', 'Location', 'Description', 'Subject']
                 writer.writerow(header)
-                writer.writerow([images[counter],date, title, creator, people, location])
+                writer.writerow([images[counter],date, title, creator, people, location, description, subject])
 
             finally:
                 f.close()
