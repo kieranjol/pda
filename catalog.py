@@ -18,26 +18,25 @@ class ExampleApp(QtGui.QMainWindow, catgui.Ui_MainWindow):
         global images
         
         super(self.__class__, self).__init__()
-        self.setupUi(self)  # This is defined in design.py file automatically
+        self.setupUi(self)
         dir = sys.argv[1]
         os.chdir(dir)
         images = glob('*.jpeg') + glob('*.tif')+ glob('*.jpg')
         image = QtGui.QImage(images[counter])
         self.label.setPixmap(QtGui.QPixmap.fromImage(image))
-        
         self.display_filename()
-        
         self.grab_exisiting_metadata()
-        
-        self.commandLinkButton.clicked.connect(self.create_csv)
         self.submitButton.clicked.connect(self.archive)
-        self.commandLinkButton.clicked.connect(self.display_filename)
-        self.commandLinkButton_2.clicked.connect(self.previous)
-        
-        
+        self.commandLinkButton.clicked.connect(self.create_csv)
         self.commandLinkButton.clicked.connect(self.next)
+        self.commandLinkButton.clicked.connect(self.display_filename)
         self.commandLinkButton.clicked.connect(self.clear)
-        self.commandLinkButton.clicked.connect(self.grab_exisiting_metadata)
+        self.commandLinkButton.clicked.connect(self.grab_exisiting_metadata)  
+        self.commandLinkButton_2.clicked.connect(self.create_csv)
+        self.commandLinkButton_2.clicked.connect(self.previous)
+        self.commandLinkButton_2.clicked.connect(self.display_filename)
+        self.commandLinkButton_2.clicked.connect(self.clear)
+        self.commandLinkButton_2.clicked.connect(self.grab_exisiting_metadata)
 
     
     def archive(self):
