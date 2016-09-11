@@ -6,10 +6,10 @@ table of contents
 
 1. [summary](https://github.com/kieranjol/pda#summary)
 2. [Script documentation](https://github.com/kieranjol/pda#functions)
-	* [catalog.py](https://github.com/kieranjol/pda#catalog.py)
-    * [audit.py](https://github.com/kieranjol/pda#audit.py)
-    * [csv2dublincore.py](https://github.com/kieranjol/pda#csv2dublincore.py)
-    * [fixity.py](https://github.com/kieranjol/pda#fixity.py)
+	* [catalog.py](https://github.com/kieranjol/pda#catalogpy)
+    * [audit.py](https://github.com/kieranjol/pda#auditpy)
+    * [csv2dublincore.py](https://github.com/kieranjol/pda#csv2dublincorepy)
+    * [fixity.py](https://github.com/kieranjol/pda#fixitypy)
 
 ## summary ##
 
