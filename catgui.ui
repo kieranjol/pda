@@ -174,45 +174,6 @@
      <string>Previous</string>
     </property>
    </widget>
-   <widget class="QCommandLinkButton" name="submitButton">
-    <property name="geometry">
-     <rect>
-      <x>570</x>
-      <y>480</y>
-      <width>188</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Submit!</string>
-    </property>
-   </widget>
-   <widget class="QRadioButton" name="radioButton">
-    <property name="geometry">
-     <rect>
-      <x>580</x>
-      <y>370</y>
-      <width>141</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Email pic to Kieran</string>
-    </property>
-   </widget>
-   <widget class="QRadioButton" name="radioButton_2">
-    <property name="geometry">
-     <rect>
-      <x>580</x>
-      <y>410</y>
-      <width>111</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Email pic to David</string>
-    </property>
-   </widget>
    <widget class="QLineEdit" name="lineEdit_11">
     <property name="geometry">
      <rect>
@@ -286,23 +247,12 @@
     </property>
    </widget>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>868</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuFile">
-    <property name="title">
-     <string>File</string>
-    </property>
-   </widget>
-   <addaction name="menuFile"/>
-  </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionOpen_Folder">
+   <property name="text">
+    <string>Open Folder</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
