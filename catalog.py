@@ -16,10 +16,10 @@ class ExampleApp(QtGui.QMainWindow, catgui.Ui_MainWindow):
     def __init__(self):
         global image
         global images
-        
+        dir = QtGui.QFileDialog.getExistingDirectory(None, 'Select a folder:', 'C:', QtGui.QFileDialog.ShowDirsOnly)
+        dir = str(dir)
         super(self.__class__, self).__init__()
         self.setupUi(self)
-        dir = sys.argv[1]
         os.chdir(dir)
         images = glob('*.jpeg') + glob('*.tif')+ glob('*.jpg')
         image = QtGui.QImage(images[counter])
@@ -38,7 +38,7 @@ class ExampleApp(QtGui.QMainWindow, catgui.Ui_MainWindow):
         self.commandLinkButton_2.clicked.connect(self.clear)
         self.commandLinkButton_2.clicked.connect(self.grab_exisiting_metadata)
 
-    
+        
     def archive(self):
        for i in images:
            csv_check = i + '.csv'
@@ -66,11 +66,11 @@ class ExampleApp(QtGui.QMainWindow, catgui.Ui_MainWindow):
                with open(md5_file, "w+") as fo:
                    md5 = subprocess.check_output(['md5deep', '-ler', i])
                    fo.write(md5)
-                
+               ''' 
                with open(sha512_file, "w+") as fo:
                    sha512 = subprocess.check_output(['openssl', 'sha512', '-r', i])
                    fo.write(sha512)
-
+               '''
     def grab_exisiting_metadata(self):
         
         csv_file = images[counter] + '.csv'
@@ -79,8 +79,8 @@ class ExampleApp(QtGui.QMainWindow, catgui.Ui_MainWindow):
                     read_object = open(csv_file)
                     reader = csv.reader(read_object)
                     csv_list = list(reader)
-                    print csv_list[1]
-                    filename_from_csv, date, title, creator, people, location, description, subject = csv_list[1]
+                    print csv_list[-1]
+                    filename_from_csv, date, title, creator, people, location, description, subject = csv_list[-1]
                     self.dateField.setText(date)
                     self.titleField.setText(title)
                     self.creatorField.setText(creator)
@@ -99,27 +99,34 @@ class ExampleApp(QtGui.QMainWindow, catgui.Ui_MainWindow):
         description = self.descriptionField.text()
         subject = self.subjectField.text()
         data_check = [str(date), str(title), str(creator), str(people), str(location), str(description), str(subject)]
-        print data_check
         field_count = 0
         for fields in data_check:
-            if fields == '':
-                print fields
-            else:
+            if not fields == '':
                 field_count += 1
-        print field_count
+                
         if not field_count == 0:        
             if not os.path.isfile(csv_file):
-                f = open(csv_file, 'wb')
+                f = open(csv_file, 'ab')
                 try:
                     writer = csv.writer(f)
                     header = ['Filename','Date', 'Title', 'Creator', 'People', 'Location', 'Description', 'Subject']
                     writer.writerow(header)
                     writer.writerow([images[counter],date, title, creator, people, location, description, subject])
-
                 finally:
                     f.close()
-                    
-                    
+            elif os.path.isfile(csv_file):
+                read_object = open(csv_file)
+                reader = csv.reader(read_object)
+                csv_list = list(reader)
+                if csv_list[-1][1:] != data_check:
+                    f = open(csv_file, 'ab')
+                    try:
+                        writer = csv.writer(f)
+                        writer.writerow([images[counter],date, title, creator, people, location, description, subject])
+                    finally:
+                        f.close()                  
+
+                        
     def clear(self):
         self.dateField.setText('')
         self.titleField.setText('')
