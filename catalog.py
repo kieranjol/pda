@@ -15,14 +15,15 @@ counter = 0
 class ExampleApp(QtGui.QMainWindow, catgui.Ui_MainWindow):
     def __init__(self):
         global image
-        global images
         dir = QtGui.QFileDialog.getExistingDirectory(None, 'Select a folder:', 'C:', QtGui.QFileDialog.ShowDirsOnly)
         dir = str(dir)
         super(self.__class__, self).__init__()
         self.setupUi(self)
         os.chdir(dir)
-        images = glob('*.jpeg') + glob('*.tif')+ glob('*.jpg')
+        self.filter()
         image = QtGui.QImage(images[counter])
+        self.checkBoxFilter.setChecked(False)
+        self.checkBoxFilter.clicked.connect(self.filter)
         self.label.setPixmap(QtGui.QPixmap.fromImage(image))
         self.display_filename()
         self.grab_exisiting_metadata()
@@ -37,7 +38,21 @@ class ExampleApp(QtGui.QMainWindow, catgui.Ui_MainWindow):
         self.commandLinkButton_2.clicked.connect(self.clear)
         self.commandLinkButton_2.clicked.connect(self.grab_exisiting_metadata)
 
-        
+    def filter(self):
+         global images
+         global counter
+         if self.checkBoxFilter.isChecked():
+             filtered_images = []
+             for i in images:
+                 csv_check = i + '.csv'
+                 if os.path.isfile(csv_check):
+                     filtered_images.append(i)
+             counter = 0       
+             images = filtered_images
+             image = QtGui.QImage(images[counter])
+             self.label.setPixmap(QtGui.QPixmap.fromImage(image))
+         else: 
+            images = glob('*.jpeg') + glob('*.tif')+ glob('*.jpg')
     def grab_exisiting_metadata(self):
         
         csv_file = images[counter] + '.csv'
@@ -104,13 +119,18 @@ class ExampleApp(QtGui.QMainWindow, catgui.Ui_MainWindow):
         self.subjectField.setText('') 
     def next(self):
         global counter
-        
-        counter+=1
+        if counter +1 == len(images):
+            counter = 0
+        else: 
+            counter+=1
         image = QtGui.QImage(images[counter])
         self.label.setPixmap(QtGui.QPixmap.fromImage(image))
     def previous(self):
         global counter
-        counter-=1
+        if counter -1 == len(images) * -1:
+            counter = 0
+        else:
+            counter-=1
         image = QtGui.QImage(images[counter])
         self.label.setPixmap(QtGui.QPixmap.fromImage(image))
     def display_filename(self):
