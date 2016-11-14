@@ -29,4 +29,7 @@ These are a python scripts and GUIs to facilitate personal archiving of still im
 #### fixity.py
 * Usage: `python fixity.py directoryname`. This analyses a directory and all of its subfolders to see if md5 sidecars exist. If they do not exist, it creates them. My parents use a compiled, binary executable of this script where the path that contains their scans is hardcoded. All they have to do is open the exe, and the script generates checksums if required.
 
+#### dbgui.py
+* Usage: `python dbgui.py`. Perform basic filename/extension queries on a specific SQL database. This assumes that a MYSQL database is running. dbconfig.txt must be completed prior to use. Replace each line with the relevant values.
+
 Note: Documentation template has been copied from [mediamicroservices](https://github.com/mediamicroservices/mm).
