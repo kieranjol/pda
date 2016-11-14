@@ -46,7 +46,7 @@ class ExampleApp(QtGui.QMainWindow, filedb.Ui_MainWindow):
             
                  
             
-                 e = '%' + self.query2.text() +  '%'
+                 e = '%' + self.query2.text()
                  cmd += " AND filename LIKE :filename"
                  
             query.prepare(cmd)     
